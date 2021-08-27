@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>mybatis在添加数据以后获取刚刚插入的主键</title>
+    <url>/2021/08/27/mybatis%E5%9C%A8%E6%B7%BB%E5%8A%A0%E6%95%B0%E6%8D%AE%E4%B9%8B%E5%90%8E%E8%8E%B7%E5%8F%96%E5%88%9A%E5%88%9A%E6%8F%92%E5%85%A5%E7%9A%84%E4%B8%BB%E9%94%AE/</url>
+    <content><![CDATA[<h4 id="背景："><a href="#背景：" class="headerlink" title="背景："></a>背景：</h4><pre><code>项目中使用mysql，代码层面使用mybatis作为持久层框架。
+场景：先将一条数据添加到数据库主表中，然后再将该表数据的主键wid（设置的数据库自增长）作为另外一条数据的外键添加到数据库中。
+</code></pre>
+<h4 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h4><pre><code>在insert语句中添加如下配置，在数据添加成功之后，会自动将主键的值设置到对象中
+</code></pre>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">selectKey</span> <span class="attr">resultType</span>=<span class="string">&quot;java.lang.Integer&quot;</span> <span class="attr">order</span>=<span class="string">&quot;AFTER&quot;</span> <span class="attr">keyProperty</span>=<span class="string">&quot;wid&quot;</span>&gt;</span> </span><br><span class="line">    SELECT LAST_INSERT_ID() </span><br><span class="line"><span class="tag">&lt;/<span class="name">selectKey</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+
+
+<h4 id="完整示例："><a href="#完整示例：" class="headerlink" title="完整示例："></a>完整示例：</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">&quot;insertUser&quot;</span> <span class="attr">parameterType</span>=<span class="string">&quot;com.test.model.User&quot;</span> &gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">selectKey</span> <span class="attr">resultType</span>=<span class="string">&quot;java.lang.Long&quot;</span> <span class="attr">keyProperty</span>=<span class="string">&quot;wid&quot;</span> <span class="attr">order</span>=<span class="string">&quot;AFTER&quot;</span>&gt;</span></span><br><span class="line">            SELECT LAST_INSERT_ID()</span><br><span class="line">        <span class="tag">&lt;/<span class="name">selectKey</span>&gt;</span></span><br><span class="line">        insert into t_user(name,sex) values (#name, #sex)</span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span>        </span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2021/08/27/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+</search>
